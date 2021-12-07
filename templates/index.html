@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Fake News Detection</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        outline: none;
+      }
+
+      html,
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      header {
+        margin: 1rem;
+      }
+
+      main {
+        margin: 4rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .url-pred > form > input[type="text"] {
+        width: 100%;
+        padding: 0.4rem;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+
+      textarea {
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+
+      button,
+      input[type="submit"] {
+        padding: 0.5rem;
+      }
+
+      .output > .pred {
+        text-align: center;
+      }
+
+      .text-pred {
+        display: none;
+      }
+
+      .url-pred {
+        display: none;
+      }
+
+      .options {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .options > button:first-child{
+        margin-right: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Fake news Detection</h1>
+    </header>
+    <main>
+      <div class="options">
+        <button onclick="showViaText()">Predict via Text</button>
+        <button onclick="showViaUrl()">Predict via Url</button>
+      </div>
+
+      <div class="text-pred">
+        <form action="/text" method="get">
+          <textarea name="text" id="text" cols="120" rows="10"></textarea>
+          <br />
+          <input type="submit" value="Check" />
+        </form>
+      </div>
+      <div class="url-pred">
+        <form action="/url" method="get">
+          <input type="text" name="url" id="url" autocomplete="off" />
+          <br />
+          <input type="submit" value="check" />
+        </form>
+      </div>
+
+      {% if prediction %}
+      <div class="output">
+        <h2 class="pred">Prediction : {{ prediction }}</h2>
+        <h2>Text Used</h2>
+        <p>{{ text }}</p>
+      </div>
+
+      {% endif %}
+    </main>
+
+    <script>
+      let textPred = document.querySelector(".text-pred");
+      let urlPred = document.querySelector(".url-pred");
+
+      const showViaText = () => {
+        textPred.style.display = "block";
+        urlPred.style.display = "none";
+      };
+
+      const showViaUrl = () => {
+        textPred.style.display = "none";
+        urlPred.style.display = "block";
+      };
+    </script>
+  </body>
+</html>
