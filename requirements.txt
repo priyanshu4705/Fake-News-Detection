@@ -113,4 +113,4 @@ virtualenv==20.4.7
 virtualenv-clone==0.5.4
 wcwidth==0.2.5
 webencodings==0.5.1
-Werkzeug==2.0.2
+Werkzeug==3.0.1
